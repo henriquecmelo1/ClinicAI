@@ -1,7 +1,8 @@
 import os
 import requests
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, BackgroundTasks, HTTPException
 from dotenv import load_dotenv
+from fastapi import Request
 
 
 load_dotenv()
@@ -10,6 +11,7 @@ ACCESS_TOKEN = os.getenv("ACCESS_TOKEN")
 API_VERSION = os.getenv("API_VERSION")
 PHONE_NUMBER_ID = os.getenv("PHONE_NUMBER_ID") # número que envia a mensagem
 RECIPIENT_WAID = os.getenv("RECIPIENT_WAID") # número que recebe a mensagem
+VERIFY_TOKEN = os.getenv("VERIFY_TOKEN") # token de verificação do webhook
 
 
 
@@ -52,7 +54,6 @@ async def send_whatsapp_message():
 
 @router.post("/send-message")
 async def send_whatsapp_message(message):
-
     url = f"https://graph.facebook.com/{API_VERSION}/{PHONE_NUMBER_ID}/messages"
     headers = {
         "Authorization": f"Bearer {ACCESS_TOKEN}",
@@ -90,3 +91,7 @@ async def send_whatsapp_message(message):
             status_code=503, # Service Unavailable
             detail=f"Failed to communicate with the Facebook API: {e}"
         )
+    
+
+    
+
