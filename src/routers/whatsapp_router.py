@@ -19,7 +19,7 @@ VERIFY_TOKEN = os.getenv("VERIFY_TOKEN") # token de verificação do webhook
 router = APIRouter()
 
 @router.post("/send-first-message")
-async def send_whatsapp_message():
+async def send_first_message():
     url = f"https://graph.facebook.com/{API_VERSION}/{PHONE_NUMBER_ID}/messages"
     headers = {
         "Authorization": f"Bearer {ACCESS_TOKEN}",

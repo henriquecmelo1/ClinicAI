@@ -1,3 +1,7 @@
 fastapi
 requests
 python-dotenv
+langgraph
+langsmith
+langchain_google_genai
+

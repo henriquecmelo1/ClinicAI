@@ -2,17 +2,24 @@ from fastapi import APIRouter, Request, HTTPException, Query
 from dotenv import load_dotenv
 import os
 
+from .whatsapp_router import send_whatsapp_message
+from ..services.ai.langgraph_config import graph
+
 load_dotenv()
 
 VERIFY_TOKEN = os.getenv("VERIFY_TOKEN")
 
 router = APIRouter()
 
-def handle_message(message, phone_number_id):
+async def handle_message(message, phone_number_id):
     sender_id = message["from"]
-
-    # Send a simple automated reply
-    print(sender_id, "Hey, your bot is up!", phone_number_id)
+    text = (message.get("text", {}).get("body", "No text")).lower()
+    state = graph.invoke({"messages": [{"role": "user", "content": text}]})
+    response_message = state["messages"][-1].content
+    print(response_message)
+    
+    await send_whatsapp_message(response_message)
+    
 
 
 @router.get("/")
@@ -27,9 +34,11 @@ async def verify_webhook(
 
 # Handle incoming messages
 @router.post("/")
-async def handle_webhook(request: Request):
+async def handle_webhook(request: Request): 
+    # triggered when the bot's message is sent, delivered and read by the user and also when a user sends a message to the bot
+    # every message should have four request (user's message, bot's message sent, delivered and read)
     data = await request.json()
-    print("Received webhook:", data)
+    print(data)
 
     if data:
         for entry in data.get("entry", []):
@@ -38,6 +47,6 @@ async def handle_webhook(request: Request):
                 phone_number_id = value.get("metadata", {}).get("phone_number_id")
                 message_data = value.get("messages", [])
                 for message in message_data:
-                    handle_message(message, phone_number_id)
+                     await handle_message(message, phone_number_id)
 
     return {"status": "EVENT_RECEIVED"}
