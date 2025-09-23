@@ -2,6 +2,8 @@ import os
 from pymongo import AsyncMongoClient
 from datetime import datetime
 from dotenv import load_dotenv
+from typing import List, Dict, Any
+
 
 load_dotenv()
 
@@ -20,11 +22,14 @@ db = client.ClinicAI
 # Get a reference to the collection where you'll store conversations
 conversation_collection = db.get_collection("conversations")
 
+async def get_user_history(sender_id: str) -> List[Dict[str, Any]]:
+    history_doc = await conversation_collection.find_one({"_id": sender_id})
+    if history_doc and "messages" in history_doc:
+        return history_doc["messages"]
+    return [] # Return an empty list if no history is found
+
+
 async def add_messages_to_history(sender_id: str, user_message: str, agent_response: str):
-    """
-    Upserts a conversation, adding the new user message and agent response to the
-    'messages' array.
-    """
     # Create the message objects in the format the AI expects
     messages_to_add = [
         {"role": "user", "content": user_message, "timestamp": datetime.utcnow()},

@@ -6,7 +6,7 @@ import json
 from .whatsapp_router import send_whatsapp_message
 from ..services.ai.langgraph_config import graph
 from ..services.ai.prompt import PROMPT
-from ..services.database import add_messages_to_history
+from ..services.database import add_messages_to_history, get_user_history
 
 load_dotenv()
 
@@ -38,15 +38,18 @@ async def handle_agent_response(state):
 
 
 async def handle_message(message, phone_number_id):
-    print("Received message:", message)
     sender_id = message["from"]
     print("Sender ID:", sender_id)
     text = (message.get("text", {}).get("body", "No text")).lower()
+
+    user_history = await get_user_history(sender_id)
+
+    messages_for_agent = [{"role": "system", "content": PROMPT}]
+    messages_for_agent.extend(user_history)
+    messages_for_agent.append({"role": "user", "content": text})
+
     state = graph.invoke(
-        {"messages": [
-            {"role": "system", "content": PROMPT},
-            {"role": "user", "content": text}
-        ]}
+        {"messages": messages_for_agent }
     )
     response_content = await handle_agent_response(state)
     response_message = response_content["agent_response"]
