@@ -2,7 +2,7 @@ install requirements:
 pip install -r requirements.txt
 
 run code:
-uvicorn src.app:app --reload
+uvicorn src.main:app --reload
 
 ngrok setup:
 ngrok http --url=sequestrable-serpentinely-arla.ngrok-free.app 8000 
