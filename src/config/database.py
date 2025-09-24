@@ -21,6 +21,7 @@ db = client.ClinicAI
 
 # Get a reference to the collection where you'll store conversations
 conversation_collection = db.get_collection("conversations")
+summary_collection = db.get_collection("summaries")
 
 async def get_user_history(sender_id: str) -> List[Dict[str, Any]]:
     history_doc = await conversation_collection.find_one({"_id": sender_id})
@@ -53,3 +54,21 @@ async def add_messages_to_history(sender_id: str, user_message: str, agent_respo
         print(f"Successfully updated conversation history for {sender_id}")
     except Exception as e:
         print(f"Error updating conversation history: {e}")
+
+    
+async def add_converstion_summary(sender_id: str, summary: str):
+    try:
+        await summary_collection.update_one(
+            {"_id": sender_id},
+            {
+                "$set": {
+                    "summary": summary,
+                    "last_updated": datetime.now()
+                }
+            },
+            upsert=True
+        )
+        print(f"Successfully updated summary for {sender_id}")
+    except Exception as e:
+        print(f"Error updating summary: {e}")
+    

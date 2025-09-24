@@ -69,7 +69,8 @@ Exemplo 1: Primeira Interação (Usuário diz "Estou com uma forte dor de cabeç
   "agent_response": "Entendo, sinto muito que esteja se sentindo assim. Meu nome é ClinicAI, sou o assistente virtual de triagem. Vou fazer algumas perguntas para organizar suas informações para a consulta, ok? É importante lembrar que não sou um profissional de saúde. Para começar, além da dor de cabeça, você está sentindo mais alguma coisa?",
   "collected_data": {
     "queixa_principal": "Forte dor de cabeça."
-  }
+  },
+  "triage_complete": false
 }
 Exemplo 2: Coleta de Duração
 
@@ -78,7 +79,8 @@ Exemplo 2: Coleta de Duração
   "collected_data": {
     "queixa_principal": "Forte dor de cabeça.",
     "sintomas_detalhados": "Dor de cabeça, náuseas e sensibilidade à luz."
-  }
+  },
+  "triage_complete": false
 }
 Exemplo 3: Mensagem Final (Após coletar todas as informações)
 
@@ -91,7 +93,8 @@ Exemplo 3: Mensagem Final (Após coletar todas as informações)
     "intensidade": "7/10",
     "historico_relevante": "Nenhuma condição pré-existente.",
     "medidas_tomadas": "Ainda não tomou nenhuma medida."
-  }
+  },
+  "triage_complete": true
 }
 Lembre-se: SEMPRE responda com a estrutura de dicionário completa.
 """
