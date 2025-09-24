@@ -22,6 +22,20 @@
 
 # print(res)
 
-import datetime
+# Your original dictionary
+data = {
+    'queixa_principal': 'Febre',
+    'sintomas_detalhados': 'Apenas febre.',
+    'duracao_frequencia': ['1 semana, constante'],
+    'intensidade': '1/10',
+    'historico_relevante': 'Nenhuma condição pré-existente ou medicamento em uso.',
+    'medidas_tomadas': 'Nenhuma medida tomada.'
+}
+
+# Create the formatted string dynamically
+formatted_string = "\n".join([f"{key.replace('_', ' ').title()}: {value}" for key, value in data.items()])
+
+# Print the formatted string
+print(formatted_string)
 
 

@@ -10,12 +10,13 @@ load_dotenv()
 ACCESS_TOKEN = os.getenv("ACCESS_TOKEN")
 API_VERSION = os.getenv("API_VERSION")
 PHONE_NUMBER_ID = os.getenv("PHONE_NUMBER_ID") # número que envia a mensagem
-RECIPIENT_WAID = os.getenv("RECIPIENT_WAID") # número que recebe a mensagem
+RECIPIENT_WAID = os.getenv("RECIPIENT_WAID") # número que recebe a mensagem (médico)
 VERIFY_TOKEN = os.getenv("VERIFY_TOKEN") # token de verificação do webhook
 
 
 router = APIRouter()
 
+#not being used
 @router.post("/send-first-message")
 async def send_first_message():
     url = f"https://graph.facebook.com/{API_VERSION}/{PHONE_NUMBER_ID}/messages"
@@ -51,7 +52,10 @@ async def send_first_message():
 
 
 @router.post("/send-message")
-async def send_whatsapp_message(message):
+async def send_whatsapp_message(message, sender_id):
+
+    
+
     url = f"https://graph.facebook.com/{API_VERSION}/{PHONE_NUMBER_ID}/messages"
     headers = {
         "Authorization": f"Bearer {ACCESS_TOKEN}",
@@ -61,7 +65,7 @@ async def send_whatsapp_message(message):
     data = {
         "messaging_product": "whatsapp",
         "recipient_type": "individual",
-        "to": RECIPIENT_WAID,  
+        "to": sender_id,  
         "type": "text",
         "text": {
             "preview_url": False,
