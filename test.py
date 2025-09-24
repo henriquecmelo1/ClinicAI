@@ -13,11 +13,15 @@
 # print(response.json())
 # print(response.status_code)
 
-import json 
+# import json 
 
-content='{  "agent_response": "Entendo. E numa escala de 0 a 10, sendo 0 sem dor e 10 a pior dor possível, como você classificaria a intensidade da dor e do desconforto no seu pé?",  "collected_data": {    "queixa_principal": "Pé inchado",   "sintomas_detalhados": "Pé inchado e dificuldade para movimentar.",    "duracao_frequencia": "Desde anteontem, constantes."  }}'
+# content='{  "agent_response": "Entendo. E numa escala de 0 a 10, sendo 0 sem dor e 10 a pior dor possível, como você classificaria a intensidade da dor e do desconforto no seu pé?",  "collected_data": {    "queixa_principal": "Pé inchado",   "sintomas_detalhados": "Pé inchado e dificuldade para movimentar.",    "duracao_frequencia": "Desde anteontem, constantes."  }}'
 
-res = json.loads(content)
-res = json.dumps(res)
+# res = json.loads(content)
+# res = json.dumps(res)
 
-print(res)
+# print(res)
+
+import datetime
+
+

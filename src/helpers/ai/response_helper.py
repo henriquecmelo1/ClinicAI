@@ -3,7 +3,6 @@ import json
 
 async def handle_agent_response(state):
     response_message = state["messages"][-1].content
-    print(state["messages"][-1])
 
     json_body = ""
     cleaned_str = response_message.strip()

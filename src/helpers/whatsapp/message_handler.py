@@ -1,9 +1,9 @@
 import json
 
 from ...routers.whatsapp_router import send_whatsapp_message
-from ..ai.langgraph_config import graph
+from ...config.langgraph_config import graph
 from ..ai.prompt import PROMPT
-from ..database import add_messages_to_history, get_user_history
+from ...config.database import add_messages_to_history, get_user_history
 from ..ai.response_helper import handle_agent_response
 
 async def handle_message(message):

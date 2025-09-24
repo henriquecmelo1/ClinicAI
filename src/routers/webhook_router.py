@@ -2,7 +2,7 @@ from fastapi import APIRouter, Request, HTTPException, Query, BackgroundTasks
 from dotenv import load_dotenv
 import os
 
-from ..services.whatsapp.message_handler import handle_message
+from ..helpers.whatsapp.message_handler import handle_message
 
 
 load_dotenv()
@@ -10,14 +10,6 @@ load_dotenv()
 VERIFY_TOKEN = os.getenv("VERIFY_TOKEN")
 
 router = APIRouter()
-
-
-
-
-
-
-
-    
 
 
 @router.get("/")

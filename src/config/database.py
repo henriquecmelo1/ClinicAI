@@ -32,8 +32,8 @@ async def get_user_history(sender_id: str) -> List[Dict[str, Any]]:
 async def add_messages_to_history(sender_id: str, user_message: str, agent_response: str):
     # Create the message objects in the format the AI expects
     messages_to_add = [
-        {"role": "user", "content": user_message, "timestamp": datetime.utcnow()},
-        {"role": "assistant", "content": agent_response, "timestamp": datetime.utcnow()}
+        {"role": "user", "content": user_message, "timestamp": datetime.now()},
+        {"role": "assistant", "content": agent_response, "timestamp": datetime.now()}
     ]
 
     try:
@@ -45,7 +45,7 @@ async def add_messages_to_history(sender_id: str, user_message: str, agent_respo
                     "messages": {"$each": messages_to_add}
                 },
                 "$set": {
-                    "last_updated": datetime.utcnow()
+                    "last_updated": datetime.now()
                 }
             },
             upsert=True # This is key: creates the document if it doesn't exist

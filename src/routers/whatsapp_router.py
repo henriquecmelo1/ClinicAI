@@ -14,8 +14,6 @@ RECIPIENT_WAID = os.getenv("RECIPIENT_WAID") # número que recebe a mensagem
 VERIFY_TOKEN = os.getenv("VERIFY_TOKEN") # token de verificação do webhook
 
 
-
-
 router = APIRouter()
 
 @router.post("/send-first-message")
