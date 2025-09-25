@@ -13,24 +13,36 @@ async def handle_message(message):
 
     user_history = await get_user_history(sender_id)
 
-    messages_for_agent = [{"role": "system", "content": PROMPT}]
-    messages_for_agent.extend(user_history)
-    messages_for_agent.append({"role": "user", "content": text})
+    messages_for_agent = [
+        {"role": "system", "content": PROMPT}, 
+        *user_history, 
+        {"role": "user", "content": text}
+    ]
 
-    state = graph.invoke(
-        {"messages": messages_for_agent }
+    final_state = graph.invoke(
+        {
+            "messages": messages_for_agent
+        }
     )
+    
+    response_message = final_state["messages"][-1].content
+    response_patient_info = final_state["patient_info"]
+    response_collected_data = final_state["collected_data"]
+    response_triage_complete = final_state["triage_complete"]
 
-    response_content = await handle_agent_response(state)
-    response_message = response_content["agent_response"]
-    stored_response = json.dumps(response_content, ensure_ascii=False)
+    response_content = {
+        "agent_response": response_message,
+        "collected_data": response_collected_data,
+        "patient_info": response_patient_info,
+        "triage_complete": response_triage_complete
+    }
 
-    conversation_id = await add_messages_to_history(sender_id, text, stored_response)
+    conversation_id = await add_messages_to_history(sender_id, text, response_message)
 
-    triage_finished = response_content["triage_complete"]
+    triage_finished = final_state["triage_complete"]
     if triage_finished:
         # await add_conversation_summary(conversation_id, sender_id, response_content["collected_data"])
-        await end_of_triage(conversation_id, sender_id, response_content["collected_data"])
+        await end_of_triage(conversation_id, sender_id, response_content["collected_data"], response_content["patient_info"])
 
 
     formatted_sender_id = sender_id
