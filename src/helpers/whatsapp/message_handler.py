@@ -3,8 +3,7 @@ import json
 from ...routers.whatsapp_router import send_whatsapp_message
 from ...config.langgraph_config import graph
 from ...config.prompt import PROMPT
-from ...config.database import add_messages_to_history, get_user_history, add_conversation_summary
-from ..ai.response_helper import handle_agent_response
+from ...services.database_service import add_messages_to_history, get_user_history
 from .end_of_triage import end_of_triage
 
 async def handle_message(message):
@@ -25,11 +24,13 @@ async def handle_message(message):
         }
     )
     
+    #state info
     response_message = final_state["messages"][-1].content
     response_patient_info = final_state["patient_info"]
     response_collected_data = final_state["collected_data"]
     response_triage_complete = final_state["triage_complete"]
 
+    #send to database
     response_content = {
         "agent_response": response_message,
         "collected_data": response_collected_data,
@@ -37,11 +38,11 @@ async def handle_message(message):
         "triage_complete": response_triage_complete
     }
 
+
     conversation_id = await add_messages_to_history(sender_id, text, response_message)
 
     triage_finished = final_state["triage_complete"]
     if triage_finished:
-        # await add_conversation_summary(conversation_id, sender_id, response_content["collected_data"])
         await end_of_triage(conversation_id, sender_id, response_content["collected_data"], response_content["patient_info"])
 
 

@@ -1,4 +1,4 @@
-from ...config.database import add_conversation_summary
+from ...services.database_service import add_conversation_summary
 from ...routers.whatsapp_router import send_whatsapp_message
 from ...models.response_model import PatientInfo, CollectedData
 import dotenv

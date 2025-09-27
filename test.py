@@ -23,19 +23,25 @@
 # print(res)
 
 # Your original dictionary
-data = {
-    'queixa_principal': 'Febre',
-    'sintomas_detalhados': 'Apenas febre.',
-    'duracao_frequencia': ['1 semana, constante'],
-    'intensidade': '1/10',
-    'historico_relevante': 'Nenhuma condição pré-existente ou medicamento em uso.',
-    'medidas_tomadas': 'Nenhuma medida tomada.'
-}
+# data = {
+#     'queixa_principal': 'Febre',
+#     'sintomas_detalhados': 'Apenas febre.',
+#     'duracao_frequencia': ['1 semana, constante'],
+#     'intensidade': '1/10',
+#     'historico_relevante': 'Nenhuma condição pré-existente ou medicamento em uso.',
+#     'medidas_tomadas': 'Nenhuma medida tomada.'
+# }
 
-# Create the formatted string dynamically
-formatted_string = "\n".join([f"{key.replace('_', ' ').title()}: {value}" for key, value in data.items()])
+# # Create the formatted string dynamically
+# formatted_string = "\n".join([f"{key.replace('_', ' ').title()}: {value}" for key, value in data.items()])
 
-# Print the formatted string
-print(formatted_string)
+# # Print the formatted string
+# print(formatted_string)
 
+import json
 
+my_dict = {'object': 'whatsapp_business_account', 'entry': [{'id': 'id', 'changes': [{'value': {'messaging_product': 'whatsapp', 'metadata': {'display_phone_number': 'testnumber', 'phone_number_id': 'id'}, 'contacts': [{'profile': {'name': 'Henrique Melo'}, 'wa_id': 'mynumber'}], 'messages': [{'from': 'mynumber', 'id': 'wamid', 'timestamp': '1758828047', 'text': {'body': 'oi'}, 'type': 'text'}]}, 'field': 'messages'}]}]}
+
+my_json = json.dumps(my_dict, indent=4)
+
+print(my_json)
