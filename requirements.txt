@@ -1,9 +1,19 @@
+# Requirements for the ClinicAI project
+# Web framework
 fastapi
 requests
+
+# Environment variables
 python-dotenv
+
+# LLM and embeddings
 langgraph
 langsmith
 langchain_google_genai
+
+# MongoDB
 pymongo
+
+# For audio transcription
 aiofiles
 openai-whisper

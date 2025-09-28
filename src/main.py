@@ -10,4 +10,4 @@ app.include_router(webhook_router.router, prefix="/webhook", tags=["Webhook"])
 
 @app.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {"message": "API is running"}
