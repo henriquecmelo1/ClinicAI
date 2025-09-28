@@ -38,10 +38,16 @@
 # # Print the formatted string
 # print(formatted_string)
 
-import json
+# import json
 
-my_dict = {'object': 'whatsapp_business_account', 'entry': [{'id': 'id', 'changes': [{'value': {'messaging_product': 'whatsapp', 'metadata': {'display_phone_number': 'testnumber', 'phone_number_id': 'id'}, 'contacts': [{'profile': {'name': 'Henrique Melo'}, 'wa_id': 'mynumber'}], 'messages': [{'from': 'mynumber', 'id': 'wamid', 'timestamp': '1758828047', 'text': {'body': 'oi'}, 'type': 'text'}]}, 'field': 'messages'}]}]}
+# my_dict = {'object': 'whatsapp_business_account', 'entry': [{'id': 'id', 'changes': [{'value': {'messaging_product': 'whatsapp', 'metadata': {'display_phone_number': 'testnumber', 'phone_number_id': 'id'}, 'contacts': [{'profile': {'name': 'Henrique Melo'}, 'wa_id': 'mynumber'}], 'messages': [{'from': 'mynumber', 'id': 'wamid', 'timestamp': '1758828047', 'text': {'body': 'oi'}, 'type': 'text'}]}, 'field': 'messages'}]}]}
 
-my_json = json.dumps(my_dict, indent=4)
+# my_json = json.dumps(my_dict, indent=4)
 
-print(my_json)
+# print(my_json)
+
+import whisper
+
+model = whisper.load_model("tiny")  # You can choose different model sizes (tiny, base, small, medium, large)
+result = model.transcribe("whatsapp_audio_files/audio_message.mp3")
+print(result["text"])

@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import os
 
 from ..helpers.whatsapp.message_handler import handle_message
+from ..helpers.whatsapp.audio_handler import audio_handler
 
 
 load_dotenv()
@@ -35,7 +36,17 @@ async def handle_webhook(request: Request, background_tasks: BackgroundTasks):
                 value = change.get("value", {})
                 message_data = value.get("messages", [])
                 for message in message_data:
-                    background_tasks.add_task(handle_message, message)
+                    if message.get("type") == "audio":
+                        # audio_info = message.get("audio", {})
+                        # audio_id = audio_info.get("id")
+                        # background_tasks.add_task(audio_handler, audio_id)
+                        background_tasks.add_task(audio_handler, message)
+
+
+                    else:
+                        background_tasks.add_task(handle_message, message)
+
+        
 
 
 
