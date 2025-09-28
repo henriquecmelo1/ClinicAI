@@ -49,5 +49,5 @@
 import whisper
 
 model = whisper.load_model("tiny")  # You can choose different model sizes (tiny, base, small, medium, large)
-result = model.transcribe("whatsapp_audio_files/audio_message.mp3")
+result = model.transcribe("whatsapp_audio_files/audio_message.mp3", language="pt", fp16=False)
 print(result["text"])

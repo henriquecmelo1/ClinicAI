@@ -87,7 +87,7 @@ async def download_audio(audio_url: str):
 
 async def transcribe_audio(file_path: str):
 
-    model = whisper.load_model("tiny.en")  # english only (translation is better)
-    result = model.transcribe(file_path)
+    model = whisper.load_model("base")  # for english use .en (translation is better)
+    result = model.transcribe(file_path, language="pt", fp16=False)
     print(f"Transcription: {result['text']}")
     return result["text"]

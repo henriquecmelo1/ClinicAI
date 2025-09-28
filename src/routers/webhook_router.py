@@ -36,14 +36,15 @@ async def handle_webhook(request: Request, background_tasks: BackgroundTasks):
                 value = change.get("value", {})
                 message_data = value.get("messages", [])
                 for message in message_data:
-                    if message.get("type") == "audio":
+                    message_type = message.get("type")
+                    if message_type == "audio":
                         # audio_info = message.get("audio", {})
                         # audio_id = audio_info.get("id")
                         # background_tasks.add_task(audio_handler, audio_id)
                         background_tasks.add_task(audio_handler, message)
 
 
-                    else:
+                    elif message_type == "text":
                         background_tasks.add_task(handle_message, message)
 
         
