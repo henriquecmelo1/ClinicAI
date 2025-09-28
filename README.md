@@ -31,11 +31,14 @@ ClinicAI é um chatbot inteligente desenvolvido para triagem de consultas médic
 - API Key do Google Gemini
 - MongoDB (local ou na nuvem)
 - FFMPEG (para manipulação de arquivos de áudio)
+  - Baixe em: https://ffmpeg.org/download.html
+  - **⚠️ Importante**: Adicione o FFMPEG às variáveis de ambiente do sistema (PATH)
+  - Para verificar se está instalado: `ffmpeg -version` no terminal
 
 ### 1. Clone o repositório
 
 ```bash
-git clone <url-do-repositorio>
+git clone https://github.com/henriquecmelo1/ClinicAI.git
 cd ClinicAI
 ```
 
@@ -45,7 +48,27 @@ cd ClinicAI
 pip install -r requirements.txt
 ```
 
-### 3. Configuração das variáveis de ambiente
+### 3. Configuração do Meta for Developers
+
+1. Acesse [Meta for Developers](https://developers.facebook.com/)
+2. Crie um novo aplicativo para WhatsApp Business
+3. Configure o webhook URL (será fornecida pelo ngrok)
+4. Obtenha as credenciais necessárias (APP_ID, APP_SECRET, ACCESS_TOKEN, etc.)
+
+#### 3.1 Configuração de Números de Telefone
+
+Para enviar mensagens via API, é necessário cadastrar os números de telefone:
+
+1. No painel do aplicativo, acesse **WhatsApp → Configuração da API**
+2. Na seção "Números de telefone", adicione o número que receberá as mensagens
+3. **Ativação do número**: 
+   - Envie uma mensagem template pelo painel do Meta for Developers
+   - Responda a mensagem template em seu telefone
+   - Após esta interação, o número estará ativo e pronto para receber mensagens da aplicação
+
+> **⚠️ Importante**: Sem este processo de ativação, a API não conseguirá enviar mensagens para o número cadastrado.
+
+### 4. Configuração das variáveis de ambiente
 
 Crie um arquivo `.env` na raiz do projeto baseado no arquivo `.env.example`:
 
@@ -61,7 +84,7 @@ Preencha as seguintes variáveis no arquivo `.env`:
 - `APP_ID`: ID do aplicativo Meta
 - `APP_SECRET`: Secret do aplicativo Meta
 - `API_VERSION`: Versão da API (ex: v22.0)
-- `PHONE_NUMBER_ID`: ID do número de teste do Meta
+- `PHONE_NUMBER_ID`: ID do número de teste da Meta
 - `VERIFY_TOKEN`: Token de verificação para webhook
 
 #### Google Gemini
@@ -69,13 +92,6 @@ Preencha as seguintes variáveis no arquivo `.env`:
 
 #### MongoDB
 - `MONGO_URI`: String de conexão do MongoDB (ex: mongodb://localhost:27017/ClinicAI)
-
-### 4. Configuração do Meta for Developers
-
-1. Acesse [Meta for Developers](https://developers.facebook.com/)
-2. Crie um novo aplicativo para WhatsApp Business
-3. Configure o webhook URL (será fornecida pelo ngrok)
-4. Obtenha as credenciais necessárias (APP_ID, APP_SECRET, ACCESS_TOKEN, etc.)
 
 ### 5. Configuração do ngrok
 

@@ -1,5 +1,3 @@
-import json
-
 from ...routers.whatsapp_router import send_whatsapp_message
 from ...config.langgraph_config import graph
 from ...config.prompt import PROMPT
