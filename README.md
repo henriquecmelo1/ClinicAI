@@ -25,7 +25,8 @@ ClinicAI é um chatbot inteligente desenvolvido para triagem de consultas médic
 
 Veja abaixo uma demonstração em vídeo do funcionamento do ClinicAI:
 
-[![Demonstração do ClinicAI](https://img.youtube.com/vi/placeholder/0.jpg)](public/demo.mp4)
+[![Watch the demo](https://img.youtube.com/vi/0Y1lC1FLPLI/0.jpg)](https://youtu.be/0Y1lC1FLPLI)
+
 
 ---
 
